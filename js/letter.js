@@ -19,11 +19,12 @@ var Letter = function(obj){
 	};
 
 	this.hideLetters = function() {
-		console.log(random);
+		// console.log(random);
 		for (i = 0; i < random.length; i++) {
 			this.werd.push("_");
 		}
-		console.log(this.werd);
+		// console.log(this.werd);
+		console.log(this.werd.join(" "));
 		// console.log(currant);
 		// console.log(this.hideLetters());
 	};
