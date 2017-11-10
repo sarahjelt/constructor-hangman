@@ -3,9 +3,6 @@ var Word = require("./word");
 var inquirer = require("inquirer");
 var answers = require("./answers").answerArray;
 
-
-
-
 var win = 0;
 var guessesLeft = 10;
 
@@ -20,11 +17,8 @@ var guess = function() {
 			])
 			.then(function(inquirerResponse) {
 				if (inquirerResponse.here) {
-					// var victim = new Word({currentAnswer: answers[Math.floor(Math.random() * answers.length)]});
 					var suspect = new Letter({});
-				// victim.randomize();//choose word
-				suspect.hideLetters();//hide word
-				//display hidden word
+					suspect.hideLetters();//hide word
 				inquirer
 					.prompt([
 						{
@@ -32,7 +26,7 @@ var guess = function() {
 							message: "Guess a letter!",
 							name: "firstguess",
 							validate: function(value) {
-								if (value === /^[a-zA-Z0-9]+$/) {
+								if (value === /^[a-zA-Z]+$/) {
 									return true;
 									}
 									return false;
@@ -40,9 +34,8 @@ var guess = function() {
 							}
 						])
 						.then(function(inquirerResponse) {
-							// if () {
-
-							// }
+							// inquirerResponse = Letter.userGuess;
+							suspect.compare(inquirerResponse);
 						})
 		    } else {
 		      console.log("\nThat's okay, we don't want to play with you anyway.\n");
