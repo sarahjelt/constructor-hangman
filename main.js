@@ -6,9 +6,9 @@ var inquirer = require("inquirer");
 lettre = new Letter();
 OK = new Guess();
 
+//overall game functionality
 function Guess() {
-
-	this.HMMM = function() {
+	this.START = function() {
 		inquirer
 			.prompt([
 			{
@@ -23,51 +23,43 @@ function Guess() {
 					console.log(lettre.werd.join(" "));
 					lettre.guessesLeft--;
 					startGame();
-			    } else {
-			    	console.log("\nThat's okay, we don't want to play with you anyway.\n");
-			    	}
-				})
-			};
+				} else {
+					console.log("\nThat's okay, we don't want to play with you anyway.\n");
+				}
+			})
+	};
 
-	this.YAY = function() {
+	//letter guessing and win/loss checker functions
+	this.GAMEPLAY = function() {
 		if (lettre.guessesLeft > 0) {
 			inquirer
-			.prompt([
+				.prompt([
 				{
 					type: "input",
 					message: "Guess a letter!",
 					name: "firstguess"
-					//get validation working
-					// validate: function thingy(value) {
-					// 	return value !== !/^[a-zA-Z]+$/; 
-					// }
 				}
 				])
 				.then(function(resp) {
 					if (lettre.guessesLeft > 0) {
 						lettre.doItFirst(resp.firstguess);
 					};
-
 					if (lettre.werd.includes("_") === false && lettre.guessesLeft > 0) {
 						won();
 					} else {
-						OK.YAY();
+						OK.GAMEPLAY();
 					}
-				})//end then resp
-			} else {
-				lettre.loss();
-				inquirer
+				})
+		} else {
+			lettre.loss();
+			inquirer
 				.prompt([
-					{
-						type: "confirm",
-						message: "\nYou're out of guesses! Would you like to play again?",
-						name: "playagain"
-						//get validation working
-						// validate: function thingy(value) {
-						// 	return value !== !/^[a-zA-Z]+$/; 
-						// }
-					}
-					])
+				{
+					type: "confirm",
+					message: "\nYou're out of guesses! Would you like to play again?",
+					name: "playagain"
+				}
+				])
 				.then(function(inquirerResponse) {
 					if (inquirerResponse.playagain) {
 						current = new Word(answers[Math.floor(Math.random() * answers.length)]);
@@ -80,14 +72,13 @@ function Guess() {
 						console.log("\nOK, bye!\n");
 					}
 				})
-			}
-		};
+		}
+	}
 };
-
 
 function startGame() {
 	if (lettre.guessesLeft = 10) {
-		OK.YAY();
+		OK.GAMEPLAY();
 	}
 };
 
@@ -99,8 +90,7 @@ function won() {
 	current = new Word(answers[Math.floor(Math.random() * answers.length)]);
 	lettre.hidden();
 	console.log(lettre.werd.join(" "));
-	OK.YAY();
+	OK.GAMEPLAY();
 }
 
-OK.HMMM();
-
+OK.START();

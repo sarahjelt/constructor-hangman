@@ -5,28 +5,25 @@ var Guess = require("./main.js");
 current = new Word(answers[Math.floor(Math.random() * answers.length)]);
 
 function Letter(userGuess) {
-
 	this.guessesLeft = 11;
 	this.wins = 0;
 	this.werd = [];
 	this.userGuess = userGuess;
 
 	this.hidden = function () {
-		// console.log(current.currant);
 		for (i = 0; i < current.currant.length; i++) {
 			this.werd.push("_");
 		}
-		// console.log(this.werd.join(" "));
 	};
 
 	this.doItFirst = function(userGuess) {
 		if (current.currant.includes(userGuess)) {
-        	this.compare(userGuess);
-        } else {
-        	this.guessesLeft--;
-        	console.log("Nope! " + this.guessesLeft + " guesses left!");
-        	console.log(this.werd.join(" "));
-        }
+			this.compare(userGuess);
+		} else {
+			this.guessesLeft--;
+			console.log("Nope! " + this.guessesLeft + " guesses left!");
+			console.log(this.werd.join(" "));
+		}
 	};
 
 	this.compare = function (val1) {
@@ -53,6 +50,5 @@ function Letter(userGuess) {
 		this.werd.splice(0, this.werd.length);
 	}
 }
-
 
 module.exports = Letter;
