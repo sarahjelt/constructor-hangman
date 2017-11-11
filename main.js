@@ -51,14 +51,14 @@ function Guess() {
 					lettre.doItFirst(resp.firstguess);
 
 					OK.YAY();
-						if (lettre.werd.includes("_") === false) {
+						if (lettre.werd.includes("_") === false && lettre.guessesLeft > 0) {
 							lettre.wins++;
 							// console.log("Congrats! You've won! Number of wins: " + this.wins);
 							won();
 						}
 				})//end then resp
 			} else {
-				// console.log("You're out of guesses! Would you like to play again?");
+				lettre.loss();
 				inquirer
 				.prompt([
 					{

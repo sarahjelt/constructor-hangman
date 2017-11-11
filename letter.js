@@ -48,7 +48,13 @@ function Letter(userGuess) {
 		console.log("You have " + this.guessesLeft + " guesses left");
 	};
 
-	this.clear =function() {
+	this.loss = function() {
+		this.werd.splice(0, this.werd.length);
+		this.werd.push(current.currant.split("").join(" "));
+		console.log('The answer was "' + this.werd.toString() + '" !');
+	};
+
+	this.clear = function() {
 		this.werd.splice(0, this.werd.length);
 	}
 }
