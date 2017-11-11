@@ -1,4 +1,4 @@
-answersArray = ["apple", "dapple", "crapple", "happle", "mapple"];
+answersArray = ["troy", "rowsdower", "pipper", "paul", "natalie", "vadinho", "torgo"];
 
 module.exports = {
 	answersArray: answersArray

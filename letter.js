@@ -12,7 +12,7 @@ function Letter(userGuess) {
 	this.userGuess = userGuess;
 
 	this.hidden = function () {
-		console.log(current.currant);
+		// console.log(current.currant);
 		for (i = 0; i < current.currant.length; i++) {
 			this.werd.push("_");
 		}
@@ -24,6 +24,8 @@ function Letter(userGuess) {
         	this.compare(userGuess);
         } else {
         	this.guessesLeft--;
+        	console.log("Nope! " + this.guessesLeft + " guesses left!");
+        	console.log(this.werd.join(" "));
         }
 	};
 
@@ -31,31 +33,25 @@ function Letter(userGuess) {
 		for (i = 0; i < current.currant.length; i++) {
 			if (current.currant.charAt(i) === val1) {
 				this.werd.splice(i, 1, val1);
-			// } else {
-			// 	console.log("Sorry! Guess again!");
-			// 	this.guessesLeft--;
-			// 	console.log(this.guessesLeft);
-			// }
+				this.render();
+			} 
 			// if (this.werd.includes("_") === false) {
 			// 	this.wins++;
-			// 	console.log(this.wins);
+			// 	console.log("Congrats! You've won! Number of wins: " + this.wins);
+			// 	}
 			// }
-			}
 		}
-		this.render();
 	};
 
 	this.render = function() {
 		console.log(this.werd.join(" "));
 		console.log("You have " + this.guessesLeft + " guesses left");
+	};
+
+	this.clear =function() {
+		this.werd.splice(0, this.werd.length);
 	}
-	
 }
-
-
-//put this in main.js?
-// invisible = new Letter();
-// invisible.hidden();
 
 
 module.exports = Letter;

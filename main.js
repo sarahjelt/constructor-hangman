@@ -3,14 +3,10 @@ var Word = require("./word.js");
 var answers = require("./answers.js").answersArray;
 var inquirer = require("inquirer");
 
-
 lettre = new Letter();
 OK = new Guess();
 
-
 function Guess() {
-	// this.wins = 0;
-	// this.guessesLeft = 10;
 
 	this.HMMM = function() {
 		inquirer
@@ -23,7 +19,7 @@ function Guess() {
 			])
 			.then(function(inquirerResponse) {
 				if (inquirerResponse.here) {
-					lettre.hidden();//hide word
+					lettre.hidden();
 					console.log(lettre.werd.join(" "));
 					lettre.guessesLeft--;
 					startGame();
@@ -55,18 +51,71 @@ function Guess() {
 					lettre.doItFirst(resp.firstguess);
 
 					OK.YAY();
+						if (lettre.werd.includes("_") === false) {
+							lettre.wins++;
+							// console.log("Congrats! You've won! Number of wins: " + this.wins);
+							won();
+						}
 				})//end then resp
 			} else {
-				console.log("You're out of guesses!");
+				// console.log("You're out of guesses! Would you like to play again?");
+				inquirer
+				.prompt([
+					{
+						type: "confirm",
+						message: "\nYou're out of guesses! Would you like to play again?",
+						name: "playagain"
+						//get validation working
+						// validate: function thingy(value) {
+						// 	return value !== !/^[a-zA-Z]+$/; 
+						// }
+					}
+					])
+				.then(function(inquirerResponse) {
+					if (inquirerResponse.playagain) {
+						console.log(new Word(answers[Math.floor(Math.random() * answers.length)]).currant);
+						lettre.clear();
+						lettre.guessesLeft = 10;
+						lettre.hidden();
+						console.log(lettre.werd.join(" "));
+						startGame();
+					} else {
+						console.log("\nOK, bye!\n");
+					}
+				})
 			}
 		};
-}
+};
 
-
-OK.HMMM();
 
 function startGame() {
 	if (lettre.guessesLeft === 10) {
 		OK.YAY();
 	}
 };
+
+function won() {
+		inquirer
+		.prompt([
+			{
+				type: "confirm",
+				message: "\nYou won!! You've won " + lettre.wins + " times. Would you like to play again?",
+				name: "winnerplayagain"
+			}
+			])
+		.then(function(inquirerResponse) {
+			if (inquirerResponse.winnerplayagain) {
+				// console.log(new Word(answers[Math.floor(Math.random() * answers.length)]).currant);
+				lettre.clear();
+				lettre.guessesLeft = 10;
+				lettre.hidden();
+				console.log(lettre.werd.join(" "));
+				startGame();
+			} else {
+				console.log("\nOK, bye!\n");
+			}
+		})
+	}
+
+OK.HMMM();
+
