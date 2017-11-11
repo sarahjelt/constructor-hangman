@@ -34,12 +34,7 @@ function Letter(userGuess) {
 			if (current.currant.charAt(i) === val1) {
 				this.werd.splice(i, 1, val1);
 				this.render();
-			} 
-			// if (this.werd.includes("_") === false) {
-			// 	this.wins++;
-			// 	console.log("Congrats! You've won! Number of wins: " + this.wins);
-			// 	}
-			// }
+			}
 		}
 	};
 

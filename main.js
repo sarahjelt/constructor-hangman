@@ -13,7 +13,7 @@ function Guess() {
 			.prompt([
 			{
 				type: "confirm",
-				message: 'Welcome to Node Hangman! This is a momentous day! Type "y" to start.',
+				message: 'Welcome to fruits-and-vegetables-themed Node Hangman! This is a momentous day! Type "y" to start.',
 				name: "here"
 			}
 			])
@@ -44,18 +44,15 @@ function Guess() {
 				}
 				])
 				.then(function(resp) {
-					Letter.prototype.changeName = function(userGuess) {
-						this.userGuess = resp.firstguess;
+					if (lettre.guessesLeft > 0) {
+						lettre.doItFirst(resp.firstguess);
 					};
-					lettre.changeName();
-					lettre.doItFirst(resp.firstguess);
 
-					OK.YAY();
-						if (lettre.werd.includes("_") === false && lettre.guessesLeft > 0) {
-							lettre.wins++;
-							// console.log("Congrats! You've won! Number of wins: " + this.wins);
-							won();
-						}
+					if (lettre.werd.includes("_") === false && lettre.guessesLeft > 0) {
+						won();
+					} else {
+						OK.YAY();
+					}
 				})//end then resp
 			} else {
 				lettre.loss();
@@ -73,7 +70,7 @@ function Guess() {
 					])
 				.then(function(inquirerResponse) {
 					if (inquirerResponse.playagain) {
-						console.log(new Word(answers[Math.floor(Math.random() * answers.length)]).currant);
+						current = new Word(answers[Math.floor(Math.random() * answers.length)]);
 						lettre.clear();
 						lettre.guessesLeft = 10;
 						lettre.hidden();
@@ -89,33 +86,21 @@ function Guess() {
 
 
 function startGame() {
-	if (lettre.guessesLeft === 10) {
+	if (lettre.guessesLeft = 10) {
 		OK.YAY();
 	}
 };
 
 function won() {
-		inquirer
-		.prompt([
-			{
-				type: "confirm",
-				message: "\nYou won!! You've won " + lettre.wins + " times. Would you like to play again?",
-				name: "winnerplayagain"
-			}
-			])
-		.then(function(inquirerResponse) {
-			if (inquirerResponse.winnerplayagain) {
-				// console.log(new Word(answers[Math.floor(Math.random() * answers.length)]).currant);
-				lettre.clear();
-				lettre.guessesLeft = 10;
-				lettre.hidden();
-				console.log(lettre.werd.join(" "));
-				startGame();
-			} else {
-				console.log("\nOK, bye!\n");
-			}
-		})
-	}
+	lettre.clear();
+	lettre.wins++;
+	console.log("\nYou won!! You've won " + lettre.wins + " times. Next word...");
+	lettre.guessesLeft = 10;
+	current = new Word(answers[Math.floor(Math.random() * answers.length)]);
+	lettre.hidden();
+	console.log(lettre.werd.join(" "));
+	OK.YAY();
+}
 
 OK.HMMM();
 
